@@ -18,7 +18,7 @@ defmodule Identicon do
     image = :egd.create(250, 250)
     fill = :egd.color(color)
 
-    Enum.each pixel_map, fn(start, stop) ->
+    Enum.each pixel_map, fn({start, stop}) ->
       :egd.filledRectangle(image, start, stop, fill)
     end
 
@@ -40,7 +40,7 @@ defmodule Identicon do
   end
 
   def filter_odd_squares(%Identicon.Image{grid: grid} = image) do
-    Enum.filter grid, fn({code, _index}) ->
+    grid = Enum.filter grid, fn({code, _index}) ->
       rem(code, 2) == 0
     end
 
